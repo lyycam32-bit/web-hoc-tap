@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Học Tập THPT</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* BANNER */
+.banner {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+/* LAYOUT */
+.main {
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    background: #1e1e2f;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.menu-item {
+    padding: 12px;
+    margin: 10px 0;
+    background: #2c2c3e;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: #3c3c5e;
+}
+
+/* CONTENT */
+.content {
+    flex: 1;
+    padding: 20px;
+    background: #f5f6fa;
+}
+
+/* FULL MODE */
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 999;
+    padding: 20px;
+    overflow: auto;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    padding: 10px 15px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+/* TABS */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tab-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #ddd;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: #3498db;
+    color: white;
+}
+
+/* IFRAME */
+iframe {
+    width: 100%;
+    height: 90vh;
+    border: none;
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="banner" id="banner">
+    <h1>🎓 Toàn bộ kiến thức chuẩn bị cho kỳ thi THPT Quốc gia</h1>
+</div>
+
+<div class="main" id="main">
+
+<div class="sidebar">
+    <div class="menu-item" onclick="openFull('toan')">📘 Toán</div>
+    <div class="menu-item" onclick="openFull('van')">📖 Văn</div>
+    <div class="menu-item" onclick="openFull('anh')">🇬🇧 Anh</div>
+</div>
+
+<div class="content">
+    <h2>Chọn môn học bên trái 👈</h2>
+</div>
+
+</div>
+
+<!-- FULLSCREEN VIEW -->
+<div id="fullscreen" style="display:none;"></div>
+
+<script>
+function openFull(type) {
+    let full = document.getElementById("fullscreen");
+
+    document.getElementById("banner").style.display = "none";
+    document.getElementById("main").style.display = "none";
+
+    full.style.display = "block";
+    full.className = "fullscreen";
+
+    let content = `
+        <button class="back-btn" onclick="closeFull()">⬅ Quay lại</button>
+    `;
+
+    if (type === "toan") {
+        content += `
+        <h2>📘 Toán</h2>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('t12', this)">12</button>
+            <button class="tab-btn" onclick="showTab('t11', this)">11</button>
+            <button class="tab-btn" onclick="showTab('t10', this)">10</button>
+        </div>
+
+        <div id="t12">
+            <iframe src="https://drive.google.com/file/d/1Q8AmHkkkSou3Zde99hBzhjtkaBETGlnC/preview"></iframe>
+        </div>
+
+        <div id="t11" style="display:none;">
+            <iframe src="https://drive.google.com/file/d/1XUVdB0mpkd9kyaR1TZ3o7cpsr9Sj4I2f/preview"></iframe>
+        </div>
+
+        <div id="t10" style="display:none;">
+            <iframe src="https://drive.google.com/file/d/1RhcHNPIYoQ4n4yzi03nP8mQqtNkhpVTi/preview"></iframe>
+        </div>
+        `;
+    }
+
+    if (type === "van") {
+        content += `
+        <h2>📖 Ngữ Văn</h2>
+        <iframe src="https://drive.google.com/file/d/1dIqGqyPff5qiVxyhjJ_cdB5YqTV9zhw-/preview"></iframe>
+        `;
+    }
+
+    if (type === "anh") {
+        content += `
+        <h2>🇬🇧 Tiếng Anh</h2>
+        <iframe src="https://drive.google.com/embeddedfolderview?id=1KnNMmdJkTdXbAOPKvVZUu5ZcErvS0xbD#grid"></iframe>
+        `;
+    }
+
+    full.innerHTML = content;
+}
+
+function closeFull() {
+    document.getElementById("fullscreen").style.display = "none";
+    document.getElementById("banner").style.display = "block";
+    document.getElementById("main").style.display = "flex";
+}
+
+function showTab(id, el) {
+    document.getElementById("t12").style.display = "none";
+    document.getElementById("t11").style.display = "none";
+    document.getElementById("t10").style.display = "none";
+
+    document.getElementById(id).style.display = "block";
+
+    let tabs = document.querySelectorAll(".tab-btn");
+    tabs.forEach(t => t.classList.remove("active"));
+    el.classList.add("active");
+}
+</script>
+
+</body>
+</html>
